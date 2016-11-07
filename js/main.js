@@ -1,6 +1,6 @@
 $(function () {
 	"use strict";
-	$.getScript("moment.js");
+	$.getScript("js/moment.js");
 	
 	$.ajax({
 		dataType: "json",
