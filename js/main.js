@@ -170,12 +170,16 @@ $(function () {
 
               time_a = new Date(a.l_stime),
               time_b = new Date(b.l_stime);
-
-          if (date_a > date_b) {return 1;}
-          if (date_b > date_a) {return -1;}
-          if (time_a > time_b) {return -1;}
-          if (time_b > time_a) {return 1;}
-          return 0;
+          
+          if (date_a !== date_b){
+            return date_a - date_b;
+          }
+          else if (time_a !== time_b){
+            return time_a - time_b;
+          }
+          else{
+            return 0;
+          }
 						// Turn your strings into dates, and then subtract them
 						// to get a value that is either negative, positive, or zero.
 					   //return new Date(a.l_date) - new Date(b.l_date);
