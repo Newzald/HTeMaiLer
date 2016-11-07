@@ -165,11 +165,11 @@ $(function () {
 					e_sorted.push({l_date : l_date, l_stime : l_stime, r_html : r_html, h_html : h_html});
 				}
 				e_sorted.sort(function(a,b){
-          var date_a = new Date(a.l_date),
-              date_b = new Date(b.l_date),
+          var date_a = Date(a.l_date),
+              date_b = Date(b.l_date),
 
-              time_a = new Date(a.l_stime),
-              time_b = new Date(b.l_stime);
+              time_a = Date(a.l_stime),
+              time_b = Date(b.l_stime);
           
           if (date_a !== date_b){
             return date_a - date_b;
