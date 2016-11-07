@@ -1,11 +1,11 @@
 <?php
 include_once("config.php");
 
-$sort = "Select * from ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
+//$sort = "Select * from ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
 
-if (mysqli_query($link, $sort));
+//if (mysqli_query($link, $sort));
 
-$query = "SELECT * FROM ".$event_table."";
+$query = "SELECT * FROM ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
 
 $result = mysqli_query($link, $query);
 for ($set = array (); $row = mysqli_fetch_assoc($result); $set[] = $row);
