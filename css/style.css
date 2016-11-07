@@ -5,6 +5,9 @@ button{
     outline: none !important;
 }
 .list-group{
-	height: 80vh;
+	height: 75vh;
 	overflow: scroll;
+}
+body {
+  padding-top: 70px !important;
 }
