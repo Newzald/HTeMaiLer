@@ -173,8 +173,8 @@ $(function () {
 
           if (date_a > date_b) {return 1;}
           if (date_b > date_a) {return -1;}
-          if (time_a > time_b) {return 1;}
-          if (time_b > time_a) {return -1;}
+          if (time_a > time_b) {return -1;}
+          if (time_b > time_a) {return 1;}
           return 0;
 						// Turn your strings into dates, and then subtract them
 						// to get a value that is either negative, positive, or zero.
