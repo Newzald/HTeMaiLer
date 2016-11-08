@@ -11,3 +11,7 @@ button{
 body {
   padding-top: 70px !important;
 }
+.sp-replaces{
+  padding: 6px !important;
+  border-radius: 4px !important;
+}

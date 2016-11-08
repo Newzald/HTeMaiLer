@@ -106,13 +106,13 @@
                 <textarea id="event-description" placeholder="  Come on and slam!" style="width:100%; border-radius:5px;"></textarea>
            </div>     
            <button type="submit" class="btn btn-default">Submit</button>
-           <input type="text" id="color-picker">
         </form>
     </div>
   <div id="eventList" class="col-sm-6">
         <!--Filled with event info by js-->
     <ul class="list-group"></ul>
 	<button type="button" id="export" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-lg">Export</button>
+	<input type="text" id="color-picker">
 	<button type="button" class="btn btn-warning" data-toggle="collapse" href=".delboxes" aria-expanded="false" autocomplete="off">
 	Edit
 	</button>
