@@ -26,6 +26,10 @@
 <link rel="manifest" href="/manifest.json">
 
 <link rel="stylesheet" href="css/style.css">
+
+<script src='js/spectrum.js'></script>
+<link rel='stylesheet' href='css/spectrum.css' />
+
 <script src="js/moment.js"></script>
 <script src="js/main.js"></script>
 
@@ -102,7 +106,7 @@
                 <textarea id="event-description" placeholder="  Come on and slam!" style="width:100%; border-radius:5px;"></textarea>
            </div>     
            <button type="submit" class="btn btn-default">Submit</button>
-           <span class="lowKeyID"></span>
+           <input type="text" id="color-picker">
         </form>
     </div>
   <div id="eventList" class="col-sm-6">
