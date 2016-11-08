@@ -226,7 +226,7 @@ $(function () {
 					
 					
 					var r_html = "&lt;tr class=\"event\"&gt;&lt;td&gt;&lt;p style=\"font-size: 14px; font-style: normal; font-weight: bold; color: #000;  padding: 5px 10px 0px 10px;line-height: 1.5em; font-family: sans-serif;\"&gt;&lt;span class=\"event-title\"&gt;"+l_name+"&lt;/span&gt;&lt;span style=\" float: right; padding-right: 12px; font-weight:normal;\"&gt;&lt;span class=\"event-placetime\"&gt;"+l_loc+" | "+l_stime+" to "+l_etime+"&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=\"font-size: 14px; font-style: normal; font-weight: normal; color: #929292;  padding: 5px 10px 0px 10px;line-height: 1.5em; font-family: sans-serif;\"&gt;&lt;span class=\"event-description\"&gt;"+l_desc+"&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;",
-              h_html = "&lt;tr class=\"daysofevents\"&gt;&lt;td&gt;&lt;a href=\"#\" style=\"text-decoration:none\"&gt;&lt;p style=\"background-color:\"+$color+\"; text-align:center; padding: 10px 10px 10px 10px; margin: 10px 10px 10px 10px;color: #FFFFFF;   font-family: sans-serif; \"&gt;&lt;span class=\"daydate\"&gt;"+h_date+"&lt;/span&gt;&lt;/p&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;";		
+              h_html = "&lt;tr class=\"daysofevents\"&gt;&lt;td&gt;&lt;a href=\"#\" style=\"text-decoration:none\"&gt;&lt;p style=\"background-color:"+$color+"; text-align:center; padding: 10px 10px 10px 10px; margin: 10px 10px 10px 10px;color: #FFFFFF;   font-family: sans-serif; \"&gt;&lt;span class=\"daydate\"&gt;"+h_date+"&lt;/span&gt;&lt;/p&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;";		
 					
 					e_sorted.push({l_date : l_date, l_stime : l_stime, r_html : r_html, h_html : h_html});
 				}
