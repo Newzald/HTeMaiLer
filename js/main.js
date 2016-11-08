@@ -47,7 +47,7 @@ $(function () {
   $('.pub-list').on('click', function(e){
     e.preventDefault();
     var $this = $(this);
-    var $t_name = $this.id();
+    var $t_name = $this.attr('id');
     $.ajax({
       type: "POST",
       url: "config.php",
