@@ -167,7 +167,7 @@ $(function () {
 	});
   
   $("#color-picker").spectrum({
-    color: "#ECC",
+    color: "#be1d23",
     showInput: true,
     className: "full-spectrum",
     showInitial: true,
