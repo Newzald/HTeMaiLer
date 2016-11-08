@@ -34,12 +34,31 @@
 <body>
 <div class="container">
   <nav class="navbar navbar-default navbar-fixed-top head_foot">
-	<div class="container">
-	  <div class="navbar-header">
-	  <a class="navbar-brand" href="#"><span class="logo" id="logoB">E</span><span class="logo hidden-xs" id="logoArd">mail Generator</span></a>
-	  </div>
-	</div>
+    <div class="container">
+      <a class="navbar-brand" href="#"><span class="logo" id="logoB">E</span><span class="logo hidden-xs" id="logoArd">mail Generator</span></a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><span id="current-publication"></span></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select publication<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <?
+              include("config.php");
+              $query = "SHOW TABLES";
+
+              $result = mysqli_query($link, $query); 
+              while($table = mysqli_fetch_array($result)) {
+                echo("<li><a id=\"". $table[0] ."\" class=\"pub-list\" href=\"#\">" . $table[0] . "</a><li>");
+              }
+              mysqli_close($link);
+            ?>
+            <li role="separator" class="divider"></li>
+            <li><a id="new-list" href="#">Create new publication</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nav>
+  
 	<div class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	  <div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">

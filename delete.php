@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+include("config.php");
 
 $toDel = $_POST["primari"];
 //This still doesn't stop the user from changing the id and deleting any other record...oh well for now

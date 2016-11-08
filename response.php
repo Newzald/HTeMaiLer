@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+include("config.php");
 
 $e_name = filter_var($_POST["e_name"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 $e_loc = filter_var($_POST["e_loc"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);

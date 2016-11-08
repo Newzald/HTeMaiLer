@@ -1,9 +1,5 @@
 <?php
-include_once("config.php");
-
-//$sort = "Select * from ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
-
-//if (mysqli_query($link, $sort));
+include("config.php");
 
 $query = "SELECT * FROM ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
 
