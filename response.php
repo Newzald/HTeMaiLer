@@ -8,6 +8,7 @@ $e_stime = filter_var($_POST["e_stime"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRI
 $e_etime = filter_var($_POST["e_etime"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 $e_desc = filter_var($_POST["e_desc"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 
+//TODO: Prepared Statement
 $insert_query = "INSERT INTO ".$event_table." (`event_id`, `event_name`, `event_loc`, `event_date`, `event_stime`, `event_etime`, `event_desc`, `event_timestamp`) VALUES ('', '".$e_name."', '".$e_loc."', '".$e_date."', '".$e_stime."', '".$e_etime."', '".$e_desc."', CURRENT_TIMESTAMP)";
 
 if($connection){
@@ -22,4 +23,3 @@ $lastkey = mysqli_insert_id($link);
 echo($lastkey);
 
 mysqli_close($link);
-?>

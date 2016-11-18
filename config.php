@@ -1,4 +1,5 @@
 <?php
+
 if(isset($_POST["etable"])) {
   $event_table = $_POST["etable"];
 }
@@ -25,4 +26,3 @@ $connection = mysqli_real_connect(
    $db//,
    //$port
 );
-?>

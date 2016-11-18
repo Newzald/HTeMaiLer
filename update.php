@@ -1,6 +1,6 @@
 <?php
 include("config.php");
-
+//TODO: Sanitize Input
 $u_type = $_POST["u_type"];
 $u_index = $_POST["u_index"];
 $u_val = $_POST["u_val"];
@@ -15,7 +15,7 @@ elseif ($u_type === "etime"){$col_id = "event_etime";}
 elseif ($u_type === "desc"){$col_id = "event_desc";}
 
 //$u_query = "UPDATE 'event_mailings'.".$event_table." SET ".$col_id." = '".$u_val."' WHERE ".$event_table.".'event_id' = ".$u_index."";
-
+//TODO: Prepared Statment
 $u_query = "UPDATE ".$event_table." SET ".$col_id."='".$u_val."' WHERE event_id=".$u_index."";
 
 if($connection){
@@ -26,4 +26,3 @@ else{
 	echo("connection Failed");
 }
 mysqli_close($link);
-?>
