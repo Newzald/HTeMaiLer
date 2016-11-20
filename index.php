@@ -72,7 +72,7 @@
 					<h4 class="modal-title">Email Code</h4>
 				</div>
 				<div class="modal-body">
-					<code></code>
+					<code class="rendered-email"></code>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
