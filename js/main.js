@@ -2,31 +2,44 @@
 $(function () {
 	"use strict";
 	$.getScript("js/moment.js");
-  
-  var load = function () { // Loads event information from database and <li> sections
-    $.ajax({
-    dataType: "json",
-    type: "GET",
-    url: "load.php",
-    success:function(response){
-      for ( var i = 0, l = response.length; i < l; i++ ) {
-        var l_name = response[i].event_name,    // loaded event-name
-            l_loc = response[i].event_loc,      // loaded event-location
-            l_date = response[i].event_date,    // loaded event-date
-            l_stime = response[i].event_stime,  // loaded event-start-time
-            l_etime = response[i].event_etime,  // loaded event-end-time
-            l_desc = response[i].event_desc,    // loaded event-description
-            l_id = response[i].event_id;        // loaded event-id; database key used to update event info
-		  // TODO: Reformat this–possibly with templating
-          // TODO: Make this a function–it is reused in form submissions
-        $('.list-group').append('<li id="'+l_id+'" class="list-group-item" data-type="text"><div><span class="event-name">'+l_name+'</span><span class="event-location" style="float:right;">'+l_loc+'</span></div><div><span class="event-date">'+l_date+'</span> | <span id="start" class="event-time">'+l_stime+'</span> – <span id="end" class="event-time">'+l_etime+'</span></div><hr><div class="row"><div class="event-description col-xs-10">'+l_desc+'</div><div class="col-xs-2"><button type="button" class="btn btn-danger collapse delboxes"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div></li>');  
-      }
-    },
-    error:function () {//xhr, ajaxOptions, thrownError){
-      alert("load error");
-      }
-    });
-  };
+
+    var addEventListElement = function(key, name, location, date, start_time, end_time, description) { // Adds events to list column
+        var eventListElement = '<li id="'+key+'" class="list-group-item" data-type="text"><div>\
+                                <span class="event-name">'+name+'</span>\
+                                <span class="event-location" style="float:right;">'+location+'</span>\
+                                </div><div>\
+                                <span class="event-date">'+date+'</span> | <span id="start" class="event-time">'+start_time+'</span> – <span id="end" class="event-time">'+end_time+'</span>\
+                                </div><hr><div class="row">\
+                                <div class="event-description col-xs-10">'+description+'</div>\
+                                <div class="col-xs-2">\
+                                <button type="button" class="btn btn-danger collapse delboxes">\
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>\
+                                </button></div></div></li>';
+        $('.list-group').append(eventListElement);
+    };
+
+    var load = function () { // Loads event information from database and <li> sections
+        $.ajax({
+            dataType: "json",
+            type: "GET",
+            url: "load.php",
+            success:function(response){
+                for ( var i = 0, l = response.length; i < l; i++ ) {
+                    var l_name = response[i].event_name,    // loaded event-name
+                        l_loc = response[i].event_loc,      // loaded event-location
+                        l_date = response[i].event_date,    // loaded event-date
+                        l_stime = response[i].event_stime,  // loaded event-start-time
+                        l_etime = response[i].event_etime,  // loaded event-end-time
+                        l_desc = response[i].event_desc,    // loaded event-description
+                        l_id = response[i].event_id;        // loaded event-id; database key used to update event info
+                    addEventListElement(l_id, l_name, l_loc, l_date, l_stime, l_etime, l_desc); // Adds event to list column
+                }
+            },
+            error:function () {//xhr, ajaxOptions, thrownError){
+                alert("load error");
+            }
+        });
+    };
 	
   $('#new-list').on('click', function(e){
     e.preventDefault();
@@ -70,16 +83,16 @@ $(function () {
             $desc   = $("#event-description").val();    // Form description field
 
         $.ajax({
-        type: "POST", // HTTP method POST or GET
-        url: "response.php", //Where to make Ajax calls
-        data: {e_name : $name, e_loc : $loc, e_date : $date, e_stime: $stime, e_etime: $etime, e_desc: $desc},
-        success:function(response){
-            //TODO: make this a function–it is reused in the load function
-            $('.list-group').append('<li id="'+response+'" class="list-group-item" data-type="text"><div><span class="event-name">'+$name+'</span><span class="event-location" style="float:right;">'+$loc+'</span></div><div><span class="event-date">'+$date+'</span> | <span id="start" class="event-time">'+$stime+'</span> – <span id="end" class="event-time">'+$etime+'</span></div><hr><div class="row"><div class="event-description col-xs-10">'+$desc+'</div><div class="col-xs-2"><button type="button" class="btn btn-danger collapse delboxes"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div></li>');
-        },
-        error:function () {//xhr, ajaxOptions, thrownError){
-            alert("response error");
-        }
+            type: "POST", // HTTP method POST or GET
+            url: "response.php", //Where to make Ajax calls
+            data: {e_name : $name, e_loc : $loc, e_date : $date, e_stime: $stime, e_etime: $etime, e_desc: $desc},
+            success:function(response){
+                var $event_key = response; // Response is primary-key of last entry; adds readability
+                addEventListElement($event_key, $name, $loc, $date, $stime, $etime, $desc); // Adds event listing to event list column
+            },
+            error:function () {//xhr, ajaxOptions, thrownError){
+                alert("response error");
+            }
         });
     });
 
@@ -113,7 +126,7 @@ $(function () {
 			error:function (){//xhr, ajaxOptions, thrownError){
 				alert("update error");
 			}
-			});
+        });
 	};
 	
 	var oriVal;
