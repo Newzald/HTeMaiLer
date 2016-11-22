@@ -32,7 +32,7 @@
 
 <script src="js/moment.js"></script>
 <script src="js/main.js"></script>
-
+<link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
@@ -45,13 +45,15 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select publication<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <?
+            <? // Lists the tables from database as options for interacting with
               include("config.php");
               $query = "SHOW TABLES";
 
               $result = mysqli_query($link, $query); 
               while($table = mysqli_fetch_array($result)) {
-                echo("<li><a id=\"". $table[0] ."\" class=\"pub-list\" href=\"#\">" . $table[0] . "</a><li>");
+                  if ($table[0] !== "hours") { // Only outputs event publication tables, not Office Hours Table
+                      echo("<li><a id=\"". $table[0] ."\" class=\"pub-list\" href=\"#\">" . $table[0] . "</a><li>");
+                  }
               }
               mysqli_close($link);
             ?>
@@ -62,26 +64,68 @@
       </ul>
     </div>
   </nav>
-  
-	<div class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	  <div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-	 		<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Email Code</h4>
-				</div>
-				<div class="modal-body">
-					<code class="rendered-email"></code>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div>
-	  </div>
-	</div>
-	<div class="col-sm-6">
+    <!-- Export Modal -->
+    <div class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Email Code</h4>
+                </div>
+                <div class="modal-body">
+                    <code class="rendered-email"></code>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+      </div>
+    </div>
+    <!-- OFFICE HOURS MODAL -->
+    <div class="modal fade bs-modal-sm" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Office Hours</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!-- TODO: Load current hours into value-->
+                            <div class="form-group">
+                                <label for="hrs-monday">Monday: </label>
+                                <input type="text" class="form-control" id="hrs-monday" placeholder="" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="hrs-tuesday">Tuesday: </label>
+                                <input type="text" class="form-control" id="hrs-tuesday" placeholder="" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="hrs-wednesday">Wednesday: </label>
+                                <input type="text" class="form-control" id="hrs-wednesday" placeholder="" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="hrs-thursday">Thursday: </label>
+                                <input type="text" class="form-control" id="hrs-thursday" placeholder="" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="hrs-friday">Friday: </label>
+                                <input type="text" class="form-control" id="hrs-friday" placeholder="" value="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
         <form>
            <div class="form-group">
                <label for="event-title">Event title</label>
@@ -100,24 +144,31 @@
                 <input id="event-time-start" type="time">
                 <label for="event-time-end">Event end time</label>
                 <input id="event-time-end" type="time">
-           </div>  
+           </div>
            <div class="form-group">
                 <label for="event-description">Event Description</label><br>
                 <textarea id="event-description" placeholder="  Come on and slam!" style="width:100%; border-radius:5px;"></textarea>
-           </div>     
+           </div>
            <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
-  <div id="eventList" class="col-sm-6">
-        <!--Filled with event info by js-->
-    <ul class="list-group"></ul>
-	<button type="button" id="export" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-lg">Export</button>
-	<input type="text" id="color-picker">
-      <!-- TODO: adjust color-button appearance and placement -->
-	<button type="button" class="btn btn-warning" data-toggle="collapse" href=".delboxes" aria-expanded="false" autocomplete="off">
-	Edit
-	</button>
-  </div>
+    <div id="eventList" class="col-sm-6">
+        <!-- Populated with event listing information -->
+        <ul class="list-group"></ul>
+
+        <!-- Buttons -->
+        <button type="button" id="export" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-lg">Export</button>
+        <input type="text" id="color-picker">
+        <!-- TODO: adjust color-button appearance and placement -->
+        <button type="button" class="btn btn-warning" data-toggle="collapse" href=".delboxes" aria-expanded="false" autocomplete="off">
+        Edit
+        </button>
+        <!-- TODO: Add way to change office hours -->
+        <button type="button" id="office-hours" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-sm">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </button>
+
+    </div>
 </div>
 </body>
 </html>

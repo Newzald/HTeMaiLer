@@ -1,7 +1,8 @@
-//TODO: comment functionality
 $(function () {
 	"use strict";
 	$.getScript("js/moment.js");
+
+    var $eventListings = $('.list-group');  // Caches list-group to reduce DOM interaction
 
     var addEventListElement = function(key, name, location, date, start_time, end_time, description) { // Adds events to list column
         var eventListElement = '<li id="'+key+'" class="list-group-item" data-type="text"><div>\
@@ -15,7 +16,7 @@ $(function () {
                                 <button type="button" class="btn btn-danger collapse delboxes">\
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>\
                                 </button></div></div></li>';
-        $('.list-group').append(eventListElement);
+        $eventListings.append(eventListElement);
     };
 
     var load = function () { // Loads event information from database and <li> sections
@@ -130,27 +131,27 @@ $(function () {
 	};
 	
 	var oriVal;
-	$(".list-group").on('dblclick', '.event-name, .event-location', function () {
+	$eventListings.on('dblclick', '.event-name, .event-location', function () {
 		oriVal = $(this).text();
 		$(this).text("");
 		$("<input type='text' value='"+oriVal+"'>").appendTo(this).focus();
 	});
-	$(".list-group").on('dblclick', '.event-date', function () {
+    $eventListings.on('dblclick', '.event-date', function () {
 		oriVal = $(this).text();
 		$(this).text("");
 		$("<input type='date' value='"+oriVal+"'>").appendTo(this).focus();
 	});
-	$(".list-group").on('dblclick', '.event-time', function () {
+    $eventListings.on('dblclick', '.event-time', function () {
 		oriVal = $(this).text();
 		$(this).text("");
 		$("<input type='time' value='"+oriVal+"'>").appendTo(this).focus();
 	});
-	$(".list-group").on('dblclick', '.event-description', function () {
+    $eventListings.on('dblclick', '.event-description', function () {
 		oriVal = $(this).text();
 		$(this).text("");
 		$("<textarea id=\"event-description\" style=\"width:100%; border-radius:5px;\">"+oriVal+"</textarea>").appendTo(this).focus();
 	});
-	$(".list-group").on('focusout', 'span > input', function () {
+    $eventListings.on('focusout', 'span > input', function () {
 		var $this = $(this);
 		var $eventIndex = $this.closest('li').attr('id');
 		var $parentSpanClass = $this.closest('span').attr('class');
@@ -171,7 +172,7 @@ $(function () {
 		$this.parent().text($this.val() || oriVal);
 		$this.remove(); // Don't just hide, remove the element.
 	});
-	$(".list-group").on('focusout', 'div > textarea', function () {
+	$eventListings.on('focusout', 'div > textarea', function () {
 		var $this = $(this);
 		var $eventIndex = $this.closest('li').attr('id');
 		var u_type = "desc",
@@ -237,7 +238,7 @@ $(function () {
                 //l_id = response[i].event_id,
                 h_date = moment(response[i].event_date, 'YYYY MM DD').format("dddd, MMM D");// loaded and formatted event-date
 
-            //TODO: THERE HAS TO BE A BETTER WAY
+            //TODO: Readability
                 var r_html = "&lt;tr class=\"event\"&gt;&lt;td&gt;&lt;p style=\"font-size: 14px; font-style: normal; font-weight: bold; color: #000;  padding: 5px 10px 0px 10px;line-height: 1.5em; margin: 0; font-family: sans-serif;\"&gt;&lt;span class=\"event-title\"&gt;"+l_name+"&lt;/span&gt;&lt;span style=\" float: right; padding-right: 12px; font-weight:normal;\"&gt;&lt;span class=\"event-placetime\"&gt;"+l_loc+" | "+l_stime+" to "+l_etime+"&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=\"font-size: 14px; font-style: normal; font-weight: normal; color: #929292; margin:0; padding: 5px 10px 0px 10px;line-height: 1.5em; font-family: sans-serif;\"&gt;&lt;span class=\"event-description\"&gt;"+l_desc+"&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;",
                     // Event listing formatted for emailing
                     h_html = "&lt;tr class=\"daysofevents\"&gt;&lt;td&gt;&lt;a href=\"#\" style=\"text-decoration:none\"&gt;&lt;p style=\"background-color:"+$color+"; text-align:center; padding: 10px 10px 10px 10px; margin: 10px 10px 10px 10px;color: #FFFFFF;   font-family: sans-serif; \"&gt;&lt;span class=\"daydate\"&gt;"+h_date+"&lt;/span&gt;&lt;/p&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;";
@@ -245,7 +246,7 @@ $(function () {
                 e_sorted.push({l_date : l_date, l_stime : l_stime, r_html : r_html, h_html : h_html}); // Pushes event information to array
             }
             var e_mid = [], // E-mail main-body output array
-                //TODO: THERE HAS TO BE A BETTER WAY
+                //TODO: Readability
                 e_bot = " &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- HTML spacer row --&gt; &lt;/tr&gt; &lt;tr bgcolor=&quot;"+$color+"&quot;&gt; &lt;td&gt;&lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- First column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p align=&quot;center&quot; style=&quot;font-size: 22px; font-weight:300; line-height: 2.5em; color: #FFF; font-family: sans-serif;&quot;&gt;SPARC&lt;/p&gt; &lt;p align=&quot;center&quot; style=&quot;font-size: 12px; color:#FFF; text-align:center; font-family: sans-serif;&quot;&gt;made with love&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- Second column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p&gt; &lt;strong&gt;SPARC Hours:&lt;/strong&gt;&lt;br&gt; Monday: 10am - 4:45pm&lt;br&gt; Tuesday: 10am - 1pm &amp; 5-7pm&lt;br&gt; Wednesday: 10am - 1pm &amp; 3-7pm&lt;br&gt; Thursday: 10am - 5pm&lt;br&gt; Friday: 10am - 4pm&lt;/p&gt; &lt;p align=&quot;right&quot; style=&quot;font-family: sans-serif;&quot;&gt; &lt;a style=&quot;color:#f2f2f2; text-decoration:none; padding-left:20px; font-size:14px;&quot; href=&quot;https://student.bard.edu/sparc&quot;&gt;SPARC&lt;/a&gt; &lt;a style=&quot;color:#F2f2f2; text-decoration:none; font-size:14px; padding-left:20px; padding-right:20px; &quot; href=&quot;mailto:juduffstein@bard.edu&quot;&gt;CONTACT&lt;/a&gt;&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;",
                 e_top = "&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;&lt;title&gt;SPARC Weekly Events&lt;/title&gt;&lt;!--Design © 2016 Ian McClellan All rights reserved.--&gt;&lt;style type=&quot;text/css&quot;&gt;body{margin: 0;}body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;font-style: normal;font-weight: 400;}button{width: 90%;}@media screen and (max-width:600px){/*styling for objects with screen size less than 600px; */body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;}table{/* All tables are 100% width */width: 100%;}.footer{/* Footer has 2 columns each of 48% width */height: auto !important;max-width: 48% !important;width: 48% !important;}table.responsiveImage{/* Container for images in catalog */height: auto !important;max-width: 30% !important;width: 30% !important;}table.responsiveContent{/* Content that accompanies the content in the catalog */height: auto !important;max-width: 66% !important;width: 66% !important;}.top{/* Each Columnar table in the header */height: auto !important;max-width: 48% !important;width: 48% !important;}.catalog{margin-left: 0%!important;}}@media screen and (max-width:480px){/*styling for objects with screen size less than 480px; */body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;}table{/* All tables are 100% width */width: 100% !important;border-style: none !important;}.footer{/* Each footer column in this case should occupy 96% width and 4% is allowed for email client padding*/height: auto !important;max-width: 96% !important;width: 96% !important;}.table.responsiveImage{/* Container for each image now specifying full width */height: auto !important;max-width: 96% !important;width: 96% !important;}.table.responsiveContent{/* Content in catalog occupying full width of cell */height: auto !important;max-width: 96% !important;width: 96% !important;}.top{/* Header columns occupying full width */height: auto !important;max-width: 100% !important;width: 100% !important;}.catalog{margin-left: 0%!important;}button{width: 90%!important;}}&lt;/style&gt;&lt;/head&gt;&lt;body yahoo=&quot;yahoo&quot;&gt;&lt;table width=&quot;78%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; style=&quot;margin-left:auto; margin-right: auto;&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- Main Wrapper Table with initial width set to 60opx --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table bgcolor=&quot;#f2f2f2&quot; class=&quot;top&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;padding:10px 10px 10px 10px;&quot;&gt; &lt;!-- First header column with Logo --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=&quot;font-size: 20px; font-weight: 400; color:"+$color+"; text-align:center; font-family: sans-serif;&quot;&gt;SPARC&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;table bgcolor=&quot;#f2f2f2&quot; class=&quot;top&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;padding:10px 10px 10px 10px; text-align:right&quot;&gt; &lt;!-- Second header column with ISSUE|DATE --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=&quot;height:23px; font-size: 12px; color:#929292; text-align:center; font-family: sans-serif;&quot;&gt;&lt;span id=&quot;today&quot;&gt;"+todays_date+"&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;&lt;!-- HTML Spacer row --&gt;&lt;/tr&gt; &lt;tr&gt; &lt;!-- Introduction area --&gt; &lt;td&gt;&lt;table width=&quot;96%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;tr&gt; &lt;!-- row container for TITLE/EMAIL THEME --&gt; &lt;td align=&quot;center&quot; style=&quot;font-size: 32px; font-weight: 300; line-height: 2.5em; color: #111; font-family: sans-serif;&quot;&gt;SPARC Weekly Events&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- row container for Tagline --&gt; &lt;td align=&quot;center&quot; style=&quot;font-size: 16px; font-weight:300; color: #555; font-family: sans-serif;&quot;&gt;The following events are from the SPARC calendar. To add your event, register it with SPARC at Student Activities in the Campus Center.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- Row container for Intro/ Description --&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;!-- HTML Spacer row --&gt;&lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; width=&quot;100%&quot; style=&quot;margin: auto, 0;&quot; class=&quot;catalog&quot;&gt; &lt;!-- Table for catalog --&gt; &lt;tr&gt; &lt;td &gt;&lt;table class=&quot;responsive-table&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;left&quot; style=&quot;margin: 10px 0px 10px 0px;&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table class=&quot;table.responsiveContent&quot; width=&quot;96%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;left&quot;&gt; &lt;!-- Table container for content --&gt; &lt;tbody class=&quot;eventlist&quot;&gt; ";
             //TODO: Incorporate this into event information rendering
@@ -268,5 +269,44 @@ $(function () {
             }
         });
     });
-	
+	//TODO: Load hours and save hours from Database
+    $('#office-hours').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "hours.php",
+            success: function(response) {
+                var $mon = response[0].mon,
+                    $tue = response[0].tue,
+                    $wed = response[0].wed,
+                    $thu = response[0].thu,
+                    $fri = response[0].fri;
+
+                $('#hrs-monday').val($mon);     // Presets office hours values as currently set values
+                $('#hrs-tuesday').val($tue);
+                $('#hrs-wednesday').val($wed);
+                $('#hrs-thursday').val($thu);
+                $('#hrs-friday').val($fri);
+            }
+        });
+    });
+    $('#update-hours').on('click', function (e) {
+        e.preventDefault();
+
+        var $monday = $('#hrs-monday').val(),
+            $tuesday = $('#hrs-tuesday').val(),
+            $wednesday = $('#hrs-wednesday').val(),
+            $thursday = $('#hrs-thursday').val(),
+            $friday = $('#hrs-friday').val();
+
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
+            success: function () {
+                alert("Hours successfully saved.");
+            }
+        });
+    });
 });
