@@ -1,5 +1,5 @@
 <?php
-include("php/config.php");
+include("config.php");
 //TODO: Sanitize Input
 $toDel = $_POST["primari"];
 //This still doesn't stop the user from changing the id and deleting any other record...oh well for now

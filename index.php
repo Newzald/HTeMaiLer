@@ -47,7 +47,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select publication<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <? // Lists the tables from database as options for interacting with
-              include("php/config.php");
+              include("config.php");
               $query = "SHOW TABLES";
 
               $result = mysqli_query($link, $query); 

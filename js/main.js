@@ -23,7 +23,7 @@ $(function () {
         $.ajax({
             dataType: "json",
             type: "GET",
-            url: "php/load.php",
+            url: "load.php",
             success:function(response){
                 for ( var i = 0, l = response.length; i < l; i++ ) {
                     var l_name = response[i].event_name,    // loaded event-name
@@ -49,12 +49,12 @@ $(function () {
     
     $.ajax({ // creates SQL-table used new_pub_name as the name
       type: "POST",
-      url: "php/newlist.php",
+      url: "newlist.php",
       data: {n_pubname : new_pub_name},
       success:function(response){
         $.ajax({
           type: "POST",
-          url: "php/config.php",
+          url: "config.php",
           data: {etable : response}
         });
       }
@@ -67,7 +67,7 @@ $(function () {
         var $t_name = $this.attr('id');
         $.ajax({
           type: "POST",
-          url: "php/config.php",
+          url: "config.php",
           data: {etable : $t_name},
           success: load() // Loads events into list column
         });
@@ -85,7 +85,7 @@ $(function () {
 
         $.ajax({
             type: "POST",
-            url: "php/response.php",
+            url: "response.php",
             data: {e_name : $name, e_loc : $loc, e_date : $date, e_stime: $stime, e_etime: $etime, e_desc: $desc},
             success:function(response){ // Response is the unique key of the last row added
                 addEventListElement(response, $name, $loc, $date, $stime, $etime, $desc); // Adds event listing to event list column
@@ -105,7 +105,7 @@ $(function () {
 			$.ajax({
 			type: "POST",
 			data: {primari : $primari},
-			url: "php/delete.php",
+			url: "delete.php",
 			success:function(){//response){
 				$('#'+$primari).fadeOut();
 			},
@@ -120,7 +120,7 @@ $(function () {
 		$.ajax({
 			type: "POST",
 			data: {u_type : u_type, u_index : $eventIndex, u_val : u_val},
-			url: "php/update.php",
+			url: "update.php",
 			success:function(){//response){
 			},
 			error:function (){//xhr, ajaxOptions, thrownError){
@@ -217,7 +217,7 @@ $(function () {
     var getHours = function () {
         $.ajax({
             type: "GET",
-            url: "php/hours.php",
+            url: "hours.php",
             success: function(response) {
                 return {    // Returns currently set hours as associative array
                     monday : response[0].mon,
@@ -236,7 +236,7 @@ $(function () {
         $.ajax({
             dataType: "json",
             type: "GET",
-            url: "php/load.php",
+            url: "load.php",
             success:function(response){
             var $color      = $("#color-picker").spectrum("get").toHexString(), // Color selected with color-picker
                 todays_date = moment().format('MMMM Do, YYYY'),                 // Date formatted for title
@@ -307,7 +307,7 @@ $(function () {
 
         $.ajax({
             type: "POST",
-            url: "php/hours.php",
+            url: "hours.php",
             data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
             success: function () {
                 alert("Hours successfully saved.");

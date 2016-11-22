@@ -1,5 +1,5 @@
 <?
-include("php/config.php");
+include("config.php");
 
 //TODO: Sanitize Input
 $newName = $_POST["n_pubname"];

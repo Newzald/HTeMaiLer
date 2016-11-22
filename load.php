@@ -1,5 +1,5 @@
 <?php
-include("php/config.php");
+include("config.php");
 //TODO: Sanitize Input
 $query = "SELECT * FROM ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
 //TODO: Prepared Statement
