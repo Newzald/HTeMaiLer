@@ -23,7 +23,7 @@ $(function () {
         $.ajax({
             dataType: "json",
             type: "GET",
-            url: "load.php",
+            url: "php/load.php",
             success:function(response){
                 for ( var i = 0, l = response.length; i < l; i++ ) {
                     var l_name = response[i].event_name,    // loaded event-name
@@ -49,12 +49,12 @@ $(function () {
     
     $.ajax({ // creates SQL-table used new_pub_name as the name
       type: "POST",
-      url: "newlist.php",
+      url: "php/newlist.php",
       data: {n_pubname : new_pub_name},
       success:function(response){
         $.ajax({
           type: "POST",
-          url: "config.php",
+          url: "php/config.php",
           data: {etable : response}
         });
       }
@@ -67,7 +67,7 @@ $(function () {
         var $t_name = $this.attr('id');
         $.ajax({
           type: "POST",
-          url: "config.php",
+          url: "php/config.php",
           data: {etable : $t_name},
           success: load() // Loads events into list column
         });
@@ -84,12 +84,11 @@ $(function () {
             $desc   = $("#event-description").val();    // Form description field
 
         $.ajax({
-            type: "POST", // HTTP method POST or GET
-            url: "response.php", //Where to make Ajax calls
+            type: "POST",
+            url: "php/response.php",
             data: {e_name : $name, e_loc : $loc, e_date : $date, e_stime: $stime, e_etime: $etime, e_desc: $desc},
-            success:function(response){
-                var $event_key = response; // Response is primary-key of last entry; adds readability
-                addEventListElement($event_key, $name, $loc, $date, $stime, $etime, $desc); // Adds event listing to event list column
+            success:function(response){ // Response is the unique key of the last row added
+                addEventListElement(response, $name, $loc, $date, $stime, $etime, $desc); // Adds event listing to event list column
             },
             error:function () {//xhr, ajaxOptions, thrownError){
                 alert("response error");
@@ -106,7 +105,7 @@ $(function () {
 			$.ajax({
 			type: "POST",
 			data: {primari : $primari},
-			url: "delete.php",
+			url: "php/delete.php",
 			success:function(){//response){
 				$('#'+$primari).fadeOut();
 			},
@@ -121,7 +120,7 @@ $(function () {
 		$.ajax({
 			type: "POST",
 			data: {u_type : u_type, u_index : $eventIndex, u_val : u_val},
-			url: "update.php",
+			url: "php/update.php",
 			success:function(){//response){
 			},
 			error:function (){//xhr, ajaxOptions, thrownError){
@@ -222,7 +221,7 @@ $(function () {
         $.ajax({
             dataType: "json",
             type: "GET",
-            url: "load.php",
+            url: "php/load.php",
             success:function(response){
             var $color      = $("#color-picker").spectrum("get").toHexString(), // Color selected with color-picker
                 todays_date = moment().format('MMMM Do, YYYY'),                 // Date formatted for title
@@ -249,7 +248,7 @@ $(function () {
                 //TODO: Readability
                 e_bot = " &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- HTML spacer row --&gt; &lt;/tr&gt; &lt;tr bgcolor=&quot;"+$color+"&quot;&gt; &lt;td&gt;&lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- First column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p align=&quot;center&quot; style=&quot;font-size: 22px; font-weight:300; line-height: 2.5em; color: #FFF; font-family: sans-serif;&quot;&gt;SPARC&lt;/p&gt; &lt;p align=&quot;center&quot; style=&quot;font-size: 12px; color:#FFF; text-align:center; font-family: sans-serif;&quot;&gt;made with love&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- Second column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p&gt; &lt;strong&gt;SPARC Hours:&lt;/strong&gt;&lt;br&gt; Monday: 10am - 4:45pm&lt;br&gt; Tuesday: 10am - 1pm &amp; 5-7pm&lt;br&gt; Wednesday: 10am - 1pm &amp; 3-7pm&lt;br&gt; Thursday: 10am - 5pm&lt;br&gt; Friday: 10am - 4pm&lt;/p&gt; &lt;p align=&quot;right&quot; style=&quot;font-family: sans-serif;&quot;&gt; &lt;a style=&quot;color:#f2f2f2; text-decoration:none; padding-left:20px; font-size:14px;&quot; href=&quot;https://student.bard.edu/sparc&quot;&gt;SPARC&lt;/a&gt; &lt;a style=&quot;color:#F2f2f2; text-decoration:none; font-size:14px; padding-left:20px; padding-right:20px; &quot; href=&quot;mailto:juduffstein@bard.edu&quot;&gt;CONTACT&lt;/a&gt;&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;",
                 e_top = "&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;&lt;title&gt;SPARC Weekly Events&lt;/title&gt;&lt;!--Design © 2016 Ian McClellan All rights reserved.--&gt;&lt;style type=&quot;text/css&quot;&gt;body{margin: 0;}body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;font-style: normal;font-weight: 400;}button{width: 90%;}@media screen and (max-width:600px){/*styling for objects with screen size less than 600px; */body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;}table{/* All tables are 100% width */width: 100%;}.footer{/* Footer has 2 columns each of 48% width */height: auto !important;max-width: 48% !important;width: 48% !important;}table.responsiveImage{/* Container for images in catalog */height: auto !important;max-width: 30% !important;width: 30% !important;}table.responsiveContent{/* Content that accompanies the content in the catalog */height: auto !important;max-width: 66% !important;width: 66% !important;}.top{/* Each Columnar table in the header */height: auto !important;max-width: 48% !important;width: 48% !important;}.catalog{margin-left: 0%!important;}}@media screen and (max-width:480px){/*styling for objects with screen size less than 480px; */body, table, td, p, a, li, blockquote{-webkit-text-size-adjust: none!important;font-family: sans-serif;}table{/* All tables are 100% width */width: 100% !important;border-style: none !important;}.footer{/* Each footer column in this case should occupy 96% width and 4% is allowed for email client padding*/height: auto !important;max-width: 96% !important;width: 96% !important;}.table.responsiveImage{/* Container for each image now specifying full width */height: auto !important;max-width: 96% !important;width: 96% !important;}.table.responsiveContent{/* Content in catalog occupying full width of cell */height: auto !important;max-width: 96% !important;width: 96% !important;}.top{/* Header columns occupying full width */height: auto !important;max-width: 100% !important;width: 100% !important;}.catalog{margin-left: 0%!important;}button{width: 90%!important;}}&lt;/style&gt;&lt;/head&gt;&lt;body yahoo=&quot;yahoo&quot;&gt;&lt;table width=&quot;78%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; style=&quot;margin-left:auto; margin-right: auto;&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- Main Wrapper Table with initial width set to 60opx --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table bgcolor=&quot;#f2f2f2&quot; class=&quot;top&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;padding:10px 10px 10px 10px;&quot;&gt; &lt;!-- First header column with Logo --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=&quot;font-size: 20px; font-weight: 400; color:"+$color+"; text-align:center; font-family: sans-serif;&quot;&gt;SPARC&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;table bgcolor=&quot;#f2f2f2&quot; class=&quot;top&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; style=&quot;padding:10px 10px 10px 10px; text-align:right&quot;&gt; &lt;!-- Second header column with ISSUE|DATE --&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=&quot;height:23px; font-size: 12px; color:#929292; text-align:center; font-family: sans-serif;&quot;&gt;&lt;span id=&quot;today&quot;&gt;"+todays_date+"&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;&lt;!-- HTML Spacer row --&gt;&lt;/tr&gt; &lt;tr&gt; &lt;!-- Introduction area --&gt; &lt;td&gt;&lt;table width=&quot;96%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;tr&gt; &lt;!-- row container for TITLE/EMAIL THEME --&gt; &lt;td align=&quot;center&quot; style=&quot;font-size: 32px; font-weight: 300; line-height: 2.5em; color: #111; font-family: sans-serif;&quot;&gt;SPARC Weekly Events&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- row container for Tagline --&gt; &lt;td align=&quot;center&quot; style=&quot;font-size: 16px; font-weight:300; color: #555; font-family: sans-serif;&quot;&gt;The following events are from the SPARC calendar. To add your event, register it with SPARC at Student Activities in the Campus Center.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- Row container for Intro/ Description --&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;!-- HTML Spacer row --&gt;&lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; width=&quot;100%&quot; style=&quot;margin: auto, 0;&quot; class=&quot;catalog&quot;&gt; &lt;!-- Table for catalog --&gt; &lt;tr&gt; &lt;td &gt;&lt;table class=&quot;responsive-table&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;left&quot; style=&quot;margin: 10px 0px 10px 0px;&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;&lt;table class=&quot;table.responsiveContent&quot; width=&quot;96%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; align=&quot;left&quot;&gt; &lt;!-- Table container for content --&gt; &lt;tbody class=&quot;eventlist&quot;&gt; ";
-            //TODO: Incorporate this into event information rendering
+            //TODO: Incorporate hours from database
             for (var x = 0, j = e_sorted.length; x<j; x++) {        // Sorts event listings
                 if($.inArray(e_sorted[x].h_html, e_mid) === -1){    // Checks if date header exists in email output array
                     e_mid.push(e_sorted[x].h_html);
@@ -275,7 +274,7 @@ $(function () {
 
         $.ajax({
             type: "GET",
-            url: "hours.php",
+            url: "load/hours.php",
             success: function(response) {
                 var $mon = response[0].mon,
                     $tue = response[0].tue,
@@ -302,7 +301,7 @@ $(function () {
 
         $.ajax({
             type: "POST",
-            url: "",
+            url: "php/hours.php",
             data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
             success: function () {
                 alert("Hours successfully saved.");

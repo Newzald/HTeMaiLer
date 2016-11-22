@@ -14,12 +14,12 @@ if (isset($newDates)){
     $thu = $_POST['thu'];
     $fri = $_POST['fri'];
 
-    $update = "UPDATE hours SET mon = ".$mon." tue = ".$tue." wed = ".$wed." thu = ".$thu." fri = ".$fri." where officeHours IS 1";
+    $update = "UPDATE hours SET mon = ".$mon." tue = ".$tue." wed = ".$wed." thu = ".$thu." fri = ".$fri." WHERE officeHours = 1";
 
     $result = mysqli_query($link, $update);
 }
 else {
-    $query = "SELECT * FROM hours WHERE officeHours = 1";
+    $query = "SELECT * FROM hours WHERE officeHours = 1";   // The only row in the 'hours' table contains the current office hours
 
     $result = mysqli_query($link, $query);
 

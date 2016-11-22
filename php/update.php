@@ -1,5 +1,5 @@
 <?php
-include("config.php");
+include("php/config.php");
 //TODO: Sanitize Input
 $u_type = $_POST["u_type"];
 $u_index = $_POST["u_index"];

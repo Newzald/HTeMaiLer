@@ -37,6 +37,7 @@
 
 <body>
 <div class="container">
+    <!-- Page Menu bar -->
   <nav class="navbar navbar-default navbar-fixed-top head_foot">
     <div class="container">
       <a class="navbar-brand" href="#"><span class="logo" id="logoB">E</span><span class="logo hidden-xs" id="logoArd">mail Generator</span></a>
@@ -46,7 +47,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select publication<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <? // Lists the tables from database as options for interacting with
-              include("config.php");
+              include("php/config.php");
               $query = "SHOW TABLES";
 
               $result = mysqli_query($link, $query); 
@@ -118,6 +119,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="update-hours">Save changes</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div><!-- /.modal-content -->
