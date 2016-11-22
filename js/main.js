@@ -214,23 +214,6 @@ $(function () {
         ]
     });
 
-    var getHours = function () {
-        $.ajax({
-            type: "GET",
-            url: "hours.php",
-            success: function(response) { // Creates and returns an object with office hours ass attributes
-                var hours = {
-                    monday : response[0].mon,
-                    tuesday : response[0].tue,
-                    wednesday : response[0].wed,
-                    thursday : response[0].thu,
-                    friday : response[0].fri
-                };
-                return hours;
-            }
-        });
-    };
-
     $('#export').on('click', function(e) { // Displays modal with rendered email with event-data pulled from server
     e.preventDefault();
 
@@ -260,7 +243,21 @@ $(function () {
                     // Event-listing's date formatted for use as header
                 e_sorted.push({l_date : l_date, l_stime : l_stime, r_html : r_html, h_html : h_html}); // Pushes event information to array
             }
-            var $hours = getHours(); // Fetches currently set office hours from database
+            // TODO: This is a mess, clean up
+            var $hours = {};
+            $.ajax({
+                type: "GET",
+                url: "hours.php",
+                success: function(response) { // Creates and returns an object with office hours as attributes
+                    $hours = { //TODO: reduce redundancy, "functionify" this
+                        monday : response[0].mon,
+                        tuesday : response[0].tue,
+                        wednesday : response[0].wed,
+                        thursday : response[0].thu,
+                        friday : response[0].fri
+                    };
+                }
+            });
             var e_mid = [], // E-mail main-body output array
                 //TODO: Readability
                 e_bot = " &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;!-- HTML spacer row --&gt; &lt;/tr&gt; &lt;tr bgcolor=&quot;"+$color+"&quot;&gt; &lt;td&gt;&lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- First column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p align=&quot;center&quot; style=&quot;font-size: 22px; font-weight:300; line-height: 2.5em; color: #FFF; font-family: sans-serif;&quot;&gt;SPARC&lt;/p&gt; &lt;p align=&quot;center&quot; style=&quot;font-size: 12px; color:#FFF; text-align:center; font-family: sans-serif;&quot;&gt;made with love&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table class=&quot;footer&quot; width=&quot;48%&quot; align=&quot;left&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt; &lt;!-- Second column of footer content --&gt; &lt;tr&gt; &lt;td&gt;&lt;p&gt; &lt;strong&gt;SPARC Hours:&lt;/strong&gt;&lt;br&gt; Monday: "+$hours.monday+"&lt;br&gt; Tuesday: "+$hours.tuesday+"&lt;br&gt; Wednesday: "+$hours.wednesday+"&lt;br&gt; Thursday: "+$hours.thursday+"&lt;br&gt; Friday: "+$hours.friday+"&lt;/p&gt; &lt;p align=&quot;right&quot; style=&quot;font-family: sans-serif;&quot;&gt; &lt;a style=&quot;color:#f2f2f2; text-decoration:none; padding-left:20px; font-size:14px;&quot; href=&quot;https://student.bard.edu/sparc&quot;&gt;SPARC&lt;/a&gt; &lt;a style=&quot;color:#F2f2f2; text-decoration:none; font-size:14px; padding-left:20px; padding-right:20px; &quot; href=&quot;mailto:juduffstein@bard.edu&quot;&gt;CONTACT&lt;/a&gt;&lt;/p&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;",
@@ -288,14 +285,26 @@ $(function () {
     $('#office-hours').on('click', function (e) {
         e.preventDefault();
 
-        var $hours = getHours();
-
-        $('#hrs-monday').val($hours.monday);     // Presets office hours values as currently set values
-        $('#hrs-tuesday').val($hours.tuesday);
-        $('#hrs-wednesday').val($hours.wednesday);
-        $('#hrs-thursday').val($hours.thursday);
-        $('#hrs-friday').val($hours.friday);
+        $.ajax({
+            type: "GET",
+            url: "hours.php",
+            success: function(response) { // Creates and returns an object with office hours ass attributes
+                var $hours = { //TODO: reduce redundancy, "functionify" this
+                    monday : response[0].mon,
+                    tuesday : response[0].tue,
+                    wednesday : response[0].wed,
+                    thursday : response[0].thu,
+                    friday : response[0].fri
+                };
+                $('#hrs-monday').val($hours.monday);     // Presets office hours values as currently set values
+                $('#hrs-tuesday').val($hours.tuesday);
+                $('#hrs-wednesday').val($hours.wednesday);
+                $('#hrs-thursday').val($hours.thursday);
+                $('#hrs-friday').val($hours.friday);
+            }
+        });
     });
+
     $('#update-hours').on('click', function (e) {
         e.preventDefault();
 
