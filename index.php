@@ -165,7 +165,7 @@
         <button type="button" class="btn btn-warning" data-toggle="collapse" href=".delboxes" aria-expanded="false" autocomplete="off">
         Edit
         </button>
-        <!-- TODO: Add way to change office hours -->
+
         <button type="button" id="office-hours" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-sm">
             <span class="glyphicon glyphicon-calendar"></span>
         </button>
