@@ -218,8 +218,14 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "hours.php",
-            success: function(response) {
-                return {monday : response[0].mon, tuesday : response[0].tue, wednesday: response[0].wed, thursday : response[0].thu, friday: response[0].fri};
+            success: function(response) { // Creates and returns an object with office hours ass attributes
+                var hours = {};
+                hours.monday = response[0].mon;
+                hours.tuesday = response[0].tue;
+                hours.wednesday = response[0].wed;
+                hours.thursday = response[0].thu;
+                hours.friday = response[0].fri;
+                return hours;
             }
         });
     };
