@@ -19,7 +19,7 @@ if (isset($newDates)){
     $result = mysqli_query($link, $update);
 }
 else {
-    $query = "SELECT * FROM hours WHERE officeHours IS 1";
+    $query = "SELECT * FROM hours WHERE officeHours = 1";
 
     $result = mysqli_query($link, $query);
 
