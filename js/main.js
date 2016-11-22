@@ -19,22 +19,6 @@ $(function () {
         $eventListings.append(eventListElement);
     };
 
-    var getHours = function () {
-        $.ajax({
-            type: "GET",
-            url: "php/hours.php",
-            success: function(response) {
-                return {    // Returns currently set hours as associative array
-                    monday : response[0].mon,
-                    tuesday : response[0].tue,
-                    wednesday: response[0].wed,
-                    thursday : response[0].thu,
-                    friday: response[0].fri
-                };
-            }
-        });
-    };
-
     var load = function () { // Loads event information from database and <li> sections
         $.ajax({
             dataType: "json",
@@ -230,7 +214,22 @@ $(function () {
         ]
     });
 
-	
+    var getHours = function () {
+        $.ajax({
+            type: "GET",
+            url: "php/hours.php",
+            success: function(response) {
+                return {    // Returns currently set hours as associative array
+                    monday : response[0].mon,
+                    tuesday : response[0].tue,
+                    wednesday: response[0].wed,
+                    thursday : response[0].thu,
+                    friday: response[0].fri
+                };
+            }
+        });
+    };
+
     $('#export').on('click', function(e) { // Displays modal with rendered email with event-data pulled from server
     e.preventDefault();
 
