@@ -316,9 +316,10 @@ $(function () {
 
         $.ajax({
             type: "POST",
-            url: "hours.php",
             data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
-            success: function () {
+            url: "hours.php",
+            success: function (response) {
+                console.log(response);
                 alert("Hours successfully saved.");
             }
         });
