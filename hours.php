@@ -1,18 +1,18 @@
 <?php
-include 'config.php';
+include("config.php");
 
 $newDates = $_POST["newDates"];
+$mon = $_POST["mon"];
+$tue = $_POST["tue"];
+$wed = $_POST["wed"];
+$thu = $_POST["thu"];
+$fri = $_POST["fri"];
 
 //TODO: Sanitize Input
 //TODO: Prepared Statements
 //TODO: Comments
 
 if ($newDates == 1){
-    $mon = $_POST["mon"];
-    $tue = $_POST["tue"];
-    $wed = $_POST["wed"];
-    $thu = $_POST["thu"];
-    $fri = $_POST["fri"];
 
     $update = "UPDATE hours SET mon = ".$mon.", tue = ".$tue.", wed = ".$wed.", thu = ".$thu.", fri = ".$fri." WHERE officeHours = 1";
 
