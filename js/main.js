@@ -318,8 +318,7 @@ $(function () {
             type: "POST",
             data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
             url: "hours.php",
-            success: function (response) {
-                console.log(response);
+            success: function () {
                 alert("Hours successfully saved.");
             }
         });

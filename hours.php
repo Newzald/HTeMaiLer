@@ -7,7 +7,7 @@ $newDates = $_POST["newDates"];
 //TODO: Prepared Statements
 //TODO: Comments
 
-if (isset($newDates)){
+if ($newDates == 1){
     $mon = $_POST["mon"];
     $tue = $_POST["tue"];
     $wed = $_POST["wed"];
