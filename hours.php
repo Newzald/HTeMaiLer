@@ -14,7 +14,7 @@ if ($newDates == 1){
     $thu = $_POST["thu"];
     $fri = $_POST["fri"];
 
-    $update = "UPDATE hours SET mon = ".$mon." tue = ".$tue." wed = ".$wed." thu = ".$thu." fri = ".$fri." WHERE officeHours = 1";
+    $update = "UPDATE hours SET mon = ".$mon.", tue = ".$tue.", wed = ".$wed.", thu = ".$thu.", fri = ".$fri." WHERE officeHours = 1";
 
     $result = mysqli_query($link, $update);
 }
