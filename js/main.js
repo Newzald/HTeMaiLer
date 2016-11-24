@@ -42,7 +42,7 @@ $(function () {
         });
     };
 	
-  $('#new-list').on('click', function(e){
+    $('#new-list').on('click', function(e){
     e.preventDefault();
     
     var new_pub_name = "pub" + moment().format("YYYYMMDD"); // String from current date used as SQL-table name
@@ -171,6 +171,7 @@ $(function () {
 		$this.parent().text($this.val() || oriVal);
 		$this.remove(); // Don't just hide, remove the element.
 	});
+
 	$eventListings.on('focusout', 'div > textarea', function () {
 		var $this = $(this);
 		var $eventIndex = $this.closest('li').attr('id');

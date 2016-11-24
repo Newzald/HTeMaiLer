@@ -32,7 +32,7 @@
 
 <script src="js/moment.js"></script>
 <script src="js/main.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 </head>
 
 <body>
@@ -131,21 +131,21 @@
         <form>
            <div class="form-group">
                <label for="event-title">Event title</label>
-               <input type="text" class="form-control" id="event-title" placeholder="Poetry Slam" value="">
+               <input type="text" class="form-control" id="event-title" placeholder="Poetry Slam" required>
            </div>
            <div class="form-group">
                <label for="event-location">Event Location</label>
-               <input type="text" class="form-control" id="event-location" placeholder="Down the Road Café">
+               <input type="text" class="form-control" id="event-location" placeholder="Down the Road Café" required>
            </div>
            <div class="form-group">
                <label for="event-date">Event date</label>
-               <input type="date" id="event-date">
+               <input type="date" id="event-date" required>
            </div>
            <div class="form-group">
                 <label for="event-time-start">Event start time</label>
-                <input id="event-time-start" type="time">
+                <input id="event-time-start" type="time" required>
                 <label for="event-time-end">Event end time</label>
-                <input id="event-time-end" type="time">
+                <input id="event-time-end" type="time" required>
            </div>
            <div class="form-group">
                 <label for="event-description">Event Description</label><br>
