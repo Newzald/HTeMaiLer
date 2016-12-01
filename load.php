@@ -7,7 +7,8 @@ $result = mysqli_query($link, $query);
 for ($set = array (); $row = mysqli_fetch_assoc($result); $set[] = $row);
 
 header('Content-type: application/json');
-echo(json_encode($set));
+$output = (json_encode($set));
+echo($output);
 
 /* close connection */
 mysqli_close($link);

@@ -4,6 +4,7 @@ if(isset($_POST["etable"])) {
   $event_table = $_POST["etable"];
 }
 else {
+    // TODO: Something is broken about this
   $event_table = "`pub20161107`";
 }
 
