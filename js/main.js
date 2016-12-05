@@ -310,7 +310,6 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "hours.php",
-            data: {reason: "load"},
             success: function(response) { // Creates and returns an object with office hours ass attributes
                 var $hours = { //TODO: reduce redundancy, "functionify" this
                     monday : response[0].mon,
@@ -339,7 +338,7 @@ $(function () {
 
         $.ajax({
             type: "POST",
-            data: {reason : "update", mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
+            data: {newDates : 1, mon : $monday, tue : $tuesday, wed : $wednesday, thu : $thursday, fri: $friday},
             url: "hours.php",
             success: function () {
                 alert("Hours successfully saved.");
