@@ -5,7 +5,7 @@ $color_bg = strip_tags($_POST['color-bg']);     // Color from #color-picker
 $color_text = strip_tags($_POST['color-text']); // Evaluated contrasting font color, doing the calculation on the client side and passing a string is easier than passing an associative array and doing the calculation server side
 
 $todays_date = date('f jS, Y'); // Date formatted in style of January 1st, 2000
-
+// TODO: Implement email functionality
 $to = strip_tags($_POST['send-email']);
 
 $subject = 'Website Change Request';

@@ -1,4 +1,2 @@
-
-.idea/ # PHPStorm Specific nonsense
-
-vendor/ # Composer can be handled in heroku
+.idea/
+vendor/

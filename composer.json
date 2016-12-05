@@ -1,0 +1,16 @@
+{
+  "name": "Ian McClellan/HTeMaiLer",
+  "description": "E-mail creation utility for the SPARC office at Bard College.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Ian McClellan",
+      "email": "im2141@bard.edu"
+    }
+  ],
+  "require": {
+    "twbs/bootstrap": "3.3.x-dev",
+    "laravel/installer": "v1.3.4"
+  }
+}
