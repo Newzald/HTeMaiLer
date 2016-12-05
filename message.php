@@ -57,7 +57,6 @@ for ($i = 0; $l = count($set); $i++){
 
 // Message Bottom TODO: Readability
 include ('hours.php');
-echo($set);
 
 $message .= '</tbody></table></td></tr> </tbody> </table></td> </tr> </table></td> </tr> <tr> <!-- HTML spacer row --> </tr> <tr bgcolor='.$color_bg.'> <td><table class="footer" width="48%" align="left" cellpadding="0" cellspacing="0"> <!-- First column of footer content --> <tr> <td><p align="center" style="font-size: 22px; font-weight:300; line-height: 2.5em; color: #FFF; font-family: sans-serif;">SPARC</p> <p align="center" style="font-size: 12px; color:#FFF; text-align:center; font-family: sans-serif;">made with love</p></td> </tr> </table> <table class="footer" width="48%" align="left" cellpadding="0" cellspacing="0"> <!-- Second column of footer content --> <tr> <td><p> <strong>SPARC Hours:</strong><br> Monday: '.$hrsMonday.'<br> Tuesday: '.$hrsTuesday.'<br> Wednesday: '.$hrsWednesday.'<br> Thursday: '.$hrsThursday.'<br> Friday: '.$hrsFriday.'</p> <p align="right" style="font-family: sans-serif;"> <a style="color:#f2f2f2; text-decoration:none; padding-left:20px; font-size:14px;" href="https://student.bard.edu/sparc">SPARC</a> <a style="color:#F2f2f2; text-decoration:none; font-size:14px; padding-left:20px; padding-right:20px; " href="mailto:juduffstein@bard.edu">CONTACT</a></p></td> </tr> </table></td> </tr> </tbody> </table></td> </tr> </tbody></table></body></html>';
 
