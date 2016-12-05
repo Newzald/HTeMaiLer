@@ -24,6 +24,7 @@ $(function () {
             dataType: "json",
             type: "GET",
             url: "load.php",
+            data: {reason: "fetch"},
             success:function(response){
                 for ( var i = 0, l = response.length; i < l; i++ ) {
                     var l_name = response[i].event_name,    // loaded event-name
@@ -244,6 +245,7 @@ $(function () {
             dataType: "json",
             type: "GET",
             url: "load.php",
+            data: {reason: "fetch"},
             success:function(response){
             var $p_color    = $("#color-picker").spectrum("get"),               // Color selected with color-picker
                 todays_date = moment().format('MMMM Do, YYYY'),                 // Date formatted for title
