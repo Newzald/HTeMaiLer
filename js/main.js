@@ -59,7 +59,6 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "hours.php",
-            data: {reason: "load"},
             success: function(response) {
                 hoursResponse(response);
             }
