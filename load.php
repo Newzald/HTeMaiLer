@@ -1,6 +1,6 @@
 <?php
 include("config.php");
-$reason = $_POST["reason"];
+$reason = $_GET["reason"];
 
 //TODO: Sanitize Input
 $query = "SELECT * FROM ".$event_table." ORDER BY `event_date` ASC, `event_stime` ASC";
