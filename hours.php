@@ -1,7 +1,8 @@
 <?php
 include("config.php");
 
-$newDates = $_POST["newDates"];
+$reason = $_POST["reason"];
+
 $mon = $_POST["mon"];
 $tue = $_POST["tue"];
 $wed = $_POST["wed"];
@@ -12,7 +13,7 @@ $fri = $_POST["fri"];
 //TODO: Prepared Statements
 //TODO: Comments
 
-if ($newDates == 1){
+if ($reason == "update"){
 
     $update = "UPDATE hours SET mon = '".$mon."', tue = '".$tue."', wed = '".$wed."', thu = '".$thu."', fri = '".$fri."' WHERE officeHours = 1";
 
@@ -30,8 +31,10 @@ else {
 
     for ($set = array (); $row = mysqli_fetch_assoc($result); $set[] = $row);
 
-    header('Content-type: application/json');
-    echo(json_encode($set));
+    if ($reason == "load"){
+        header('Content-type: application/json');
+        echo(json_encode($set));
+    }
 
 };
 
