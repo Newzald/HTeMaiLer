@@ -46,11 +46,11 @@ $message .= '</head><body yahoo="yahoo"><table width="78%" cellspacing="0" cellp
         $endTime    = date($events[$i]['event_etime'], 'g:i a');
         $date       = date($events[$i]['event_date'], 'l, f j'); // event-date formatted in style of "Monday, January 1"
 
-        $r_html = '<tr class="event"><td><p style="font-size: 14px; font-style: normal; font-weight: bold; color: #000;  padding: 5px 10px 0 10px;line-height: 1.5em; margin: 0; font-family: sans-serif;">';
+        $r_html = '<tr class="event"><td><p style="font-size: 14px; font-style: normal; font-weight: bold; color: #000;  padding: 5px 10px 0 10px;line-height: 1.5em; font-family: sans-serif;">';
         $r_html .= '<span class="event-title">'.$events[$i]['event_name'].'</span>';
         $r_html .= '<span style=" float: right; padding-right: 12px; font-weight:normal;">';
         $r_html .= '<span class="event-placetime">'.$events[$i]['event_loc'].' | '.$startTime.' to '.$endTime.'</span>';
-        $r_html .= '</span></p><p style="font-size: 14px; font-style: normal; font-weight: normal; color: #929292; margin:0; padding: 5px 10px 0 10px;line-height: 1.5em; font-family: sans-serif;">';
+        $r_html .= '</span></p><p style="font-size: 14px; font-style: normal; font-weight: normal; color: #929292; padding: 5px 10px 5px 10px;line-height: 1.5em; font-family: sans-serif;">';
         $r_html .= '<span class="event-description">'.$events[$i]['event_desc'].'</span>';
         $r_html .= '</p></td></tr>';
 
