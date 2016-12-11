@@ -16,7 +16,7 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+<!-- TODO: see what is actually necessary here -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -31,6 +31,7 @@
 <link rel='stylesheet' href='css/spectrum.css' />
 
 <script src="js/moment.js"></script>
+<script src="js/requests.js"></script>
 <script src="js/main.js"></script>
 <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 </head>
@@ -50,8 +51,8 @@
               include("config.php");
               $query = "SHOW TABLES";
 
-              $result = mysqli_query($link, $query); 
-              while($table = mysqli_fetch_array($result)) {
+              $result = $conn->query($query);
+              while($table = $result->fetch_array(MYSQLI_ASSOC)) {
                   if ($table[0] !== "hours") { // Only outputs event publication tables, not Office Hours Table
                       echo("<li><a id=\"". $table[0] ."\" class=\"pub-list\" href=\"#\">" . $table[0] . "</a><li>");
                   }
@@ -75,7 +76,7 @@
                     <h4 class="modal-title">Email Code</h4>
                 </div>
                 <div class="modal-body">
-                    <code class="rendered-email"></code>
+                    <code class="email-code"></code>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -94,7 +95,7 @@
                         <h4 class="modal-title">Office Hours</h4>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="form-event">
                             <!-- TODO: Load current hours into value-->
                             <div class="form-group">
                                 <label for="hrs-monday">Monday: </label>
@@ -159,9 +160,9 @@
         <ul class="list-group"></ul>
 
         <!-- Buttons -->
+        <!-- TODO: adjust button placement and appearances -->
         <button type="button" id="export" class="btn btn-default" data-toggle="modal" data-target=".bs-modal-lg">Export</button>
         <input type="text" id="color-picker">
-        <!-- TODO: adjust color-button appearance and placement -->
         <button type="button" class="btn btn-warning" data-toggle="collapse" href=".delboxes" aria-expanded="false" autocomplete="off">
         Edit
         </button>
