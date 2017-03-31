@@ -1,6 +1,5 @@
 $(function () {
 	"use strict";
-	$.getScript("js/moment.js");
 
     var $eventListings = $('.list-group');  // Caches list-group to reduce DOM interaction for updates
     var $table = '',                        // TODO: Fix table selction

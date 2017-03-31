@@ -52,12 +52,14 @@
               $query = "SHOW TABLES";
 
               $result = $conn->query($query);
+
               while($table = $result->fetch_array(MYSQLI_ASSOC)) {
                   if ($table[0] !== "hours") { // Only outputs event publication tables, not Office Hours Table
                       echo("<li><a id=\"". $table[0] ."\" class=\"pub-list\" href=\"#\">" . $table[0] . "</a><li>");
                   }
               }
-              mysqli_close($link);
+
+              $conn->close();
             ?>
             <li role="separator" class="divider"></li>
             <li><a id="new-list" href="#">Create new publication</a></li>

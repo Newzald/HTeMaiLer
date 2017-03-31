@@ -42,7 +42,7 @@ function fetch_data($table_name, $data){
         }
 
         $response = $conn->query($stmt);
-        for ($set = array(); $row = $response->fetch_assoc(); $set[] = $row) ; // Creates an array of 'objects' with information as attributes
+        for ($set = array(); $row = $response->fetch_assoc(); $set[] = $row); // Creates an array of 'objects' with information as attributes
         $conn->close();
         return $set;
     }
